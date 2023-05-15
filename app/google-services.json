@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "245591613509",
+    "project_id": "immovote-b5a6c",
+    "storage_bucket": "immovote-b5a6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245591613509:android:c75b5ce3b5d671d9cf432c",
+        "android_client_info": {
+          "package_name": "com.example.immovote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245591613509-f2400it3sfm2j84iv98vis7qjionjo5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWVUwh_Syju6I1b9-RKLVM0L0v7nrns0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245591613509-f2400it3sfm2j84iv98vis7qjionjo5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
