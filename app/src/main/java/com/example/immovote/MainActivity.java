@@ -58,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         fab = findViewById(R.id.fab);
 
+        //Ouvre la page d'ajout
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newPpe = new Intent(getApplicationContext(), AddNewPPEActivity.class);
+                startActivity(newPpe);
+                //finish();
+            }
+        });
 
     }
     //Gestion du menu
