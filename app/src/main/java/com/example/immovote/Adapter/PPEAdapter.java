@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.immovote.Model.PPEModel;
 import com.example.immovote.R;
+import com.example.immovote.Utils.UserIsAdmin;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,8 +53,10 @@ public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PP
     }
 
     public void deleteItem(int position){
-        //Supprime l'élément à la position donnée dans la base de données Firestore
-        getSnapshots().getSnapshot(position).getReference().delete();
+        if (UserIsAdmin.userIsAdmin == true){
+            //Supprime l'élément à la position donnée dans la base de données Firestore
+            getSnapshots().getSnapshot(position).getReference().delete();
+        }
     }
 
 
@@ -68,6 +72,11 @@ public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PP
             address = itemView.findViewById(R.id.address);
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
             modifyBtn = itemView.findViewById(R.id.updateBtn);
+            //Masque les bouttons pour les non administrateur
+            if (UserIsAdmin.userIsAdmin == false){
+                deleteBtn.setVisibility(View.GONE);
+                modifyBtn.setVisibility(View.GONE);
+            }
 
             //Si le bouton delete est cliqué
             deleteBtn.setOnClickListener(new View.OnClickListener() {

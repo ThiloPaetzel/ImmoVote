@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.immovote.Adapter.PPEAdapter;
@@ -20,11 +21,15 @@ import com.example.immovote.Model.PPEModel;
 import com.example.immovote.Utils.UserIsAdmin;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -33,13 +38,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PPEAdapter adapter;
+    private FloatingActionButton fab;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference ppeCollectionRef = db.collection("PPE");
-
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -48,36 +55,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Check si l'utilisateur est admin
-        db.collection("Users").document(currentUser.getEmail()).collection("Info").whereEqualTo("isAdmin", true).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful() && !task.getResult().isEmpty()){
-                    for (QueryDocumentSnapshot document : task.getResult()){
-                        Boolean isAdmin = document.getBoolean("isAdmin");
-                        if (isAdmin != null && isAdmin){
-                            UserIsAdmin.userIsAdmin = true;
-                            Toast.makeText(MainActivity.this, "you are admin", Toast.LENGTH_SHORT).show();
-                        } else {
-                            UserIsAdmin.userIsAdmin = false;
-                            Toast.makeText(MainActivity.this, "you are not admin", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                } else {
-                    UserIsAdmin.userIsAdmin = false;
-                    Toast.makeText(MainActivity.this, "you are not admin", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         recyclerView = findViewById(R.id.recyclerView);
+        fab = findViewById(R.id.fab);
 
 
     }
     //Gestion du menu
 
-    //Début de test pour afficher le menu si l'ont est admin (Pas concluant)
+    //Affichage du menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -128,22 +113,67 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+
+    //Aide de chatGPT il y avait un problème lorsque l'utilisateur revenait sur la page d'accueil.
+    //Il fallait enfait mettre à jour l'adapter dans la méthode onStart et non pas dans OnCreate afin de le mettre à jour lorsque l'utilisateur reviens sur la page
     @Override
     protected void onStart() {
         super.onStart();
+        //Check si l'utilisateur est admin va checker avec whereEqualTo si le champ isAdmin est juste si oui, utilise la query pour afficher toutes les PPE
+        db.collection("Users").document(currentUser.getEmail()).collection("Info").whereEqualTo("isAdmin", true).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful() && !task.getResult().isEmpty()){
+                    // Est admin
+                    UserIsAdmin.userIsAdmin = true;
+                    Toast.makeText(MainActivity.this, "You are admin", Toast.LENGTH_SHORT).show();
+                    fab.setVisibility(View.VISIBLE);//Rends le boutton d'ajout visible
 
-        //Aide de chatGPT il y avait un problème lorsque l'utilisateur revenait sur la page d'accueil.
-        //Il fallait enfait mettre à jour l'adapter dans la méthode onStart et non pas dans OnCreate afin de le mettre à jour lorsque l'utilisateur reviens sur la page
-        Query query = FirebaseFirestore.getInstance().collection("PPE");
-        FirestoreRecyclerOptions<PPEModel> options = new FirestoreRecyclerOptions.Builder<PPEModel>().setQuery(query, PPEModel.class).build();
+                    Query query = FirebaseFirestore.getInstance().collection("PPE");
+                    FirestoreRecyclerOptions<PPEModel> options = new FirestoreRecyclerOptions.Builder<PPEModel>().setQuery(query, PPEModel.class).build();
+                    adapter = new PPEAdapter(options);
 
-        adapter = new PPEAdapter(options);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    recyclerView.setAdapter(adapter);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        recyclerView.setAdapter(adapter);
+                    adapter.startListening();
+                } else {
+                    //Utilisateur non admin va chercher dans la collection "myPPE" et va ajouer toutes les adresses à la liste addresses
+                    UserIsAdmin.userIsAdmin = false;
+                    Toast.makeText(MainActivity.this, "you are not admin", Toast.LENGTH_SHORT).show();
+                    fab.setVisibility(View.GONE);//Rends le boutton d'ajout invisible
+                    FirebaseFirestore.getInstance().collection("Users").document(currentUser.getEmail()).collection("myPPE").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<String> addresses = new ArrayList<>();
+                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                String addresse = documentSnapshot.getString("Address");
+                                if (addresse != null){
+                                    addresses.add(addresse);
+                                }
+                            }
 
-        //Lance l'écoute des modifications de la base de donnée
-        adapter.startListening();
+                            //Utilise la list avec toutes les addresses pour afficher depuis la collection "PPE" uniquement les ppe d'ont l'utilisateur fais partis
+                            Query query = FirebaseFirestore.getInstance().collection("PPE").whereIn("Address", addresses);
+
+                            FirestoreRecyclerOptions<PPEModel> options = new FirestoreRecyclerOptions.Builder<PPEModel>().setQuery(query, PPEModel.class).build();
+                            adapter = new PPEAdapter(options);
+
+                            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                            recyclerView.setAdapter(adapter);
+
+                            adapter.startListening();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(MainActivity.this, "Erreur : " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     @Override
