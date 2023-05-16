@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
         android:title="AddUser"
-        android:id="@+id/profile_menu"
+        android:id="@+id/adduserMenu"
         android:icon="@drawable/baseline_person_24"
         app:showAsAction="always"/>
 
 
     <item
         android:title="AddAdminUser"
-        android:id="@+id/disconnect_menu"
+        android:id="@+id/AddAdminMenu"
         android:icon="@drawable/baseline_admin_person_24"
         app:showAsAction="always"/>
 
     <item
         android:title="AdminList"
-        android:id="@+id/share_menu"
+        android:id="@+id/ListAdminMenu"
         android:icon="@drawable/baseline_admin_panel_24"
+        app:showAsAction="always"/>
+
+    <item
+        android:title="Logout"
+        android:id="@+id/LogoutMenu"
+        android:icon="@drawable/baseline_logout_24"
         app:showAsAction="always"/>
 
 </menu>
