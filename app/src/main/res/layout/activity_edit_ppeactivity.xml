@@ -7,11 +7,11 @@
     tools:context=".AddNewPPEActivity">
 
     <EditText
-        android:id="@+id/AddAddress"
+        android:id="@+id/editAddAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Adresse de la PPE"
+        android:hint="Nouvel adresse de la PPE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,25 +19,25 @@
 
 
     <EditText
-        android:id="@+id/AddName"
+        android:id="@+id/editAddName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginTop="96dp"
-        android:hint="Nom de la PPE"
+        android:hint="Nouveau nom de la PPE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="@id/AddAddress"
-        app:layout_constraintTop_toBottomOf="@id/AddAddress" />
+        app:layout_constraintStart_toStartOf="@id/editAddAddress"
+        app:layout_constraintTop_toBottomOf="@id/editAddAddress" />
 
     <Button
-        android:id="@+id/add_btn"
+        android:id="@+id/save_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
-        android:text="Add"
+        android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddName" />
+        app:layout_constraintTop_toBottomOf="@+id/editAddName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

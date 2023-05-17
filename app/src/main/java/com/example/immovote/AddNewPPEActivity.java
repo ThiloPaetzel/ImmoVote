@@ -33,9 +33,9 @@ public class AddNewPPEActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_ppeactivity);
-        editName = findViewById(R.id.editAddName);
-        editAddress = findViewById(R.id.editAddAddress);
-        saveBtn = findViewById(R.id.save_btn);
+        editName = findViewById(R.id.AddName);
+        editAddress = findViewById(R.id.AddAddress);
+        saveBtn = findViewById(R.id.add_btn);
         db = FirebaseFirestore.getInstance();
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +79,7 @@ public class AddNewPPEActivity extends AppCompatActivity {
                                         //Collection projet pour la copropriété
                                         Map<String, Object> projCollection = new HashMap<>();
 
+                                        //Ajout de la collection Projet à la PPE qui contient un document d'initialisation de la collection
                                         db.collection("PPE").document(newPpeId).collection("Projet").document("Document_d'initialisation").set(projCollection).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {

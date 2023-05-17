@@ -44,7 +44,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PPEAdapter adapter;
-    private FloatingActionButton fab;
+    private FloatingActionButton fab, updateBtn;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 //finish();
             }
         });
+
 
     }
     //Gestion du menu

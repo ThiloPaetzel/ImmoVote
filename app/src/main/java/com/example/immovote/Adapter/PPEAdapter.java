@@ -2,6 +2,8 @@ package com.example.immovote.Adapter;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.immovote.EditPPEActivity;
 import com.example.immovote.Model.PPEModel;
 import com.example.immovote.R;
 import com.example.immovote.Utils.UserIsAdmin;
@@ -19,6 +22,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PPEViewHolder> {
@@ -59,7 +63,6 @@ public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PP
         }
     }
 
-
     public class PPEViewHolder extends RecyclerView.ViewHolder{
 
         TextView name, address;
@@ -84,6 +87,25 @@ public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PP
                 public void onClick(View v) {
                     int position = getBindingAdapterPosition();//Position dans le recycler view
                     showConfirmationDialog(position);//Méthode pour afficher un dialogue de confirmation
+                }
+            });
+            //Si le boutton modifier est cliqué
+            modifyBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getBindingAdapterPosition();//Position dans le recyclerView
+                    PPEModel ppeModel = getItem(position);//Récupère toutes les informations de l'objet ou le boutton update à été cliqué
+
+                    //Bundle qui contiendra les informations de la PPE
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ppeId", getSnapshots().getSnapshot(position).getId());//Id de la PPE
+                    bundle.putString("ppeName", ppeModel.getName());//Nom de la PPE
+                    bundle.putString("ppeAddress", ppeModel.getAddress());//Adresse de la PPE
+
+                    //Lancer l'activité de modification
+                    Intent intent = new Intent(itemView.getContext(), EditPPEActivity.class);
+                    intent.putExtras(bundle);//Permet de passer le bundle à l'activité qui sera ouverte
+                    itemView.getContext().startActivity(intent);//Lance 'activité en utilisant l'itemView pour récupérer le context
                 }
             });
         }
