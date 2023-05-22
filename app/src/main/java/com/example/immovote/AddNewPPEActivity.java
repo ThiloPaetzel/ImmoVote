@@ -78,6 +78,7 @@ public class AddNewPPEActivity extends AppCompatActivity {
 
                                         //Collection projet pour la copropriété
                                         Map<String, Object> projCollection = new HashMap<>();
+                                        projCollection.put("Title", "init");
 
                                         //Ajout de la collection Projet à la PPE qui contient un document d'initialisation de la collection
                                         db.collection("PPE").document(newPpeId).collection("Projet").document("Document_d'initialisation").set(projCollection).addOnSuccessListener(new OnSuccessListener<Void>() {

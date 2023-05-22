@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.immovote.EditPPEActivity;
 import com.example.immovote.Model.PPEModel;
+import com.example.immovote.PPEDetailActivity;
 import com.example.immovote.R;
 import com.example.immovote.Utils.UserIsAdmin;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -66,7 +67,7 @@ public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PP
     public class PPEViewHolder extends RecyclerView.ViewHolder{
 
         TextView name, address;
-        FloatingActionButton deleteBtn, modifyBtn;
+        FloatingActionButton deleteBtn, modifyBtn, detailBtn;
 
         public PPEViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,7 +76,8 @@ public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PP
             address = itemView.findViewById(R.id.address);
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
             modifyBtn = itemView.findViewById(R.id.updateBtn);
-            //Masque les bouttons pour les non administrateur
+            detailBtn = itemView.findViewById(R.id.detailBtn);
+            //Masque les bouttons delete et midify pour les non administrateur
             if (UserIsAdmin.userIsAdmin == false){
                 deleteBtn.setVisibility(View.GONE);
                 modifyBtn.setVisibility(View.GONE);
@@ -104,6 +106,25 @@ public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PP
 
                     //Lancer l'activité de modification
                     Intent intent = new Intent(itemView.getContext(), EditPPEActivity.class);
+                    intent.putExtras(bundle);//Permet de passer le bundle à l'activité qui sera ouverte
+                    itemView.getContext().startActivity(intent);//Lance 'activité en utilisant l'itemView pour récupérer le context
+                }
+            });
+            //Si le boutton detail est cliqué
+            detailBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getBindingAdapterPosition();//Position dans le recyclerView
+                    PPEModel ppeModel = getItem(position);//Récupère toutes les informations de l'objet ou le boutton update à été cliqué
+
+                    //Bundle qui contiendra les informations de la PPE
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ppeId", getSnapshots().getSnapshot(position).getId());//Id de la PPE
+                    bundle.putString("ppeName", ppeModel.getName());//Nom de la PPE
+                    bundle.putString("ppeAddress", ppeModel.getAddress());//Adresse de la PPE
+
+                    //Lance l'activité de detail
+                    Intent intent = new Intent(itemView.getContext(), PPEDetailActivity.class);
                     intent.putExtras(bundle);//Permet de passer le bundle à l'activité qui sera ouverte
                     itemView.getContext().startActivity(intent);//Lance 'activité en utilisant l'itemView pour récupérer le context
                 }
