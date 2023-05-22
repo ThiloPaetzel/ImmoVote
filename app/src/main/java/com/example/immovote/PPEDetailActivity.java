@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -36,7 +37,6 @@ public class PPEDetailActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         addProject = findViewById(R.id.addProjectFab);
 
-
     }
 
     @Override
@@ -45,6 +45,7 @@ public class PPEDetailActivity extends AppCompatActivity {
         if (UserIsAdmin.userIsAdmin == false){
             addProject.setVisibility(View.GONE);
         }
+
         //Récupère les données du bundle
         Bundle bundle = getIntent().getExtras();
         String ppeId = bundle.getString("ppeId");
@@ -63,6 +64,20 @@ public class PPEDetailActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         adapter.startListening();
+
+        //Ouvre l'activité d'ajout d'un projet
+        addProject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle addProjectBundle = new Bundle();
+                addProjectBundle.putString("ppeId", bundle.getString("ppeId"));//Id de la PPE
+
+
+                Intent intent = new Intent(getApplicationContext(), AddNewProject.class);
+                intent.putExtras(addProjectBundle);
+                startActivity(intent);
+            }
+        });
 
     }
 
