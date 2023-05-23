@@ -126,7 +126,7 @@ public class AddNewProject extends AppCompatActivity {
                 //HashMap qui va stocker les informations du projet ajouté
                 Map<String, Object> projectInfo = new HashMap<>();
                 projectInfo.put("Title", name);
-                projectInfo.put("Status", 0);
+                projectInfo.put("Status", 0);//Lorsqu'un projet est ajouté il est de base en cours pour modifier le status il suffit de modifier le projet
                 projectInfo.put("StartDate", finalStartDate);
                 projectInfo.put("EndDate", finaleEndDate);
                 projectInfo.put("Description", description);

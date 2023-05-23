@@ -55,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.btn_login);
 
-
         //Login
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,11 +65,11 @@ public class LoginActivity extends AppCompatActivity {
                 email = String.valueOf(editTextEmail.getText());
 
                 if (TextUtils.isEmpty(email)){
-                    Toast.makeText(LoginActivity.this, "Enter an email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Entrer un Email", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(password)){
-                    Toast.makeText(LoginActivity.this, "Enter a password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Entrer un mot de passe", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -79,15 +78,15 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()){
-                            //Login successful
+                            //Login réussi
                             Log.d(TAG, "signInWithEmail:success");
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
-                            //Login fail
+                            //Login echec
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentification failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Login echec", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

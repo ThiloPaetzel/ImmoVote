@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddNewProject">
+
+    <EditText
+        android:id="@+id/editProjTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Nom du projet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/editProjDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="96dp"
+        android:hint="Description du projet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="@id/editProjTitle"
+        app:layout_constraintTop_toBottomOf="@id/editProjTitle" />
+
+    <EditText
+        android:id="@+id/editProjCost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="96dp"
+        android:inputType="numberDecimal"
+        android:hint="Coût estimé du projet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="@id/editProjDescription"
+        app:layout_constraintTop_toBottomOf="@id/editProjDescription" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editSetStartDate"
+        app:layout_constraintStart_toStartOf="@id/editProjCost"
+        app:layout_constraintTop_toBottomOf="@+id/editProjCost"
+        android:drawableRight="@drawable/baseline_calendar_month_24"
+        android:text="Date de début "
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editSetEndDate"
+        app:layout_constraintStart_toStartOf="@id/editSetStartDate"
+        app:layout_constraintTop_toBottomOf="@+id/editSetStartDate"
+        android:drawableRight="@drawable/baseline_calendar_month_24"
+        android:text="Date de fin "
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/editAdd_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="8dp"
+        android:text="Modifier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:id="@+id/radioGroup"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/editSetEndDate"
+        app:layout_constraintTop_toBottomOf="@id/editSetEndDate"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="329dp"
+        android:layout_marginTop="18dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonInProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="En cours" />
+
+        <RadioButton
+            android:id="@+id/radioButtonEnded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Terminé" />
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
