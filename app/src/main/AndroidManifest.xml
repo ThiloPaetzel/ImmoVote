@@ -12,6 +12,9 @@
         android:theme="@style/Theme.ImmoVote"
         tools:targetApi="31">
         <activity
+            android:name=".RapportActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditProjectActivity"
             android:exported="false" />
         <activity

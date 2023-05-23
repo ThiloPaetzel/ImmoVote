@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.immovote.Adapter.PPEAdapter;
@@ -26,6 +27,7 @@ public class PPEDetailActivity extends AppCompatActivity {
     private ProjectAdapter adapter;
     private RecyclerView recyclerView;
     private FloatingActionButton addProject;
+    private Button rapportButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class PPEDetailActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.ppeDetailRecyclerView);
         db = FirebaseFirestore.getInstance();
         addProject = findViewById(R.id.addProjectFab);
+        rapportButton = findViewById(R.id.rapportButton);
 
     }
 
@@ -79,6 +82,19 @@ public class PPEDetailActivity extends AppCompatActivity {
             }
         });
 
+        //Clique sur rapport
+        rapportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle rapportBundle = new Bundle();
+                rapportBundle.putString("ppeId", bundle.getString("ppeId"));//Id de la PPE
+                rapportBundle.putString("ppeName", bundle.getString("ppeName"));
+
+                Intent intent = new Intent(getApplicationContext(), RapportActivity.class);
+                intent.putExtras(rapportBundle);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

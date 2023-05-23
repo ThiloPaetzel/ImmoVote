@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".RapportActivity">
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ppeDetailRecyclerView"
+        android:id="@+id/rapportRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="150dp"
@@ -17,49 +17,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addProjectFab"
-        app:srcCompat="@drawable/baseline_add_24"
-        android:clickable="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
     <TextView
         android:id="@+id/ppeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Nom de la PPE"
-        app:layout_constraintBottom_toTopOf="@+id/ppeDetailRecyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/rapportRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.267" />
 
     <TextView
-        android:id="@+id/ppeAddress"
+        android:id="@+id/projectCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Adresse de la PPE"
-        app:layout_constraintBottom_toTopOf="@+id/ppeDetailRecyclerView"
+        android:text="Coût des projets"
+        app:layout_constraintBottom_toTopOf="@+id/rapportRecyclerView"
         app:layout_constraintEnd_toEndOf="@+id/ppeName"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ppeName"
         app:layout_constraintVertical_bias="0.519" />
 
-    <Button
-        android:id="@+id/rapportButton"
+    <RadioGroup
+        android:id="@+id/radioGroupSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rapport"
-        app:layout_constraintBottom_toTopOf="@+id/ppeDetailRecyclerView"
+        android:layout_marginBottom="54dp"
+        app:layout_constraintBottom_toTopOf="@+id/rapportRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ppeAddress"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/ppeName"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioButtonInProgressSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="En cours" />
+
+        <RadioButton
+            android:id="@+id/radioButtonEndedSelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Terminés" />
+    </RadioGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
