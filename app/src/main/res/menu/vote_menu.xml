@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="voteUp"
+        android:id="@+id/voteUpMenu"
+        android:icon="@drawable/baseline_thumb_up_alt_24"
+        app:showAsAction="always"/>
+
+
+    <item
+        android:title="voteDown"
+        android:id="@+id/voteDownMenu"
+        android:icon="@drawable/baseline_thumb_down_alt_24"
+        app:showAsAction="always"/>
+
+    <item
+        android:title="voteNeutral"
+        android:id="@+id/voteNeutralMenu"
+        android:icon="@drawable/baseline_thumbs_up_down_24"
+        app:showAsAction="always"/>
+
+</menu>

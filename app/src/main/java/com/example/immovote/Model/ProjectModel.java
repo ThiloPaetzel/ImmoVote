@@ -5,7 +5,31 @@ import com.google.firebase.Timestamp;
 public class ProjectModel {
     private String Title, Cost, Description;
     private String EndDate, StartDate;
-    private int Status;
+    private int Status, VoteDown, VoteMiddle, VoteUp;
+
+    public int getVoteDown() {
+        return VoteDown;
+    }
+
+    public void setVoteDown(int voteDown) {
+        VoteDown = voteDown;
+    }
+
+    public int getVoteMiddle() {
+        return VoteMiddle;
+    }
+
+    public void setVoteMiddle(int voteMiddle) {
+        VoteMiddle = voteMiddle;
+    }
+
+    public int getVoteUp() {
+        return VoteUp;
+    }
+
+    public void setVoteUp(int voteUp) {
+        VoteUp = voteUp;
+    }
 
     public int getStatus() {
         return Status;

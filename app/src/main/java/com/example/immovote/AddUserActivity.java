@@ -92,7 +92,6 @@ public class AddUserActivity extends AppCompatActivity {
                                         if (task.isSuccessful()){
                                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                                             DocumentReference userDocRef = db.collection("Users").document(email);//Référence du document de l'utilisateur
-
                                             userDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {

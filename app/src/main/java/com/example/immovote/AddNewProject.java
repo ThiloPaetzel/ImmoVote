@@ -125,6 +125,9 @@ public class AddNewProject extends AppCompatActivity {
 
                 //HashMap qui va stocker les informations du projet ajouté
                 Map<String, Object> projectInfo = new HashMap<>();
+                projectInfo.put("VoteUp", 0);
+                projectInfo.put("VoteMiddle", 0);
+                projectInfo.put("VoteDown", 0);
                 projectInfo.put("Title", name);
                 projectInfo.put("Status", 0);//Lorsqu'un projet est ajouté il est de base en cours pour modifier le status il suffit de modifier le projet
                 projectInfo.put("StartDate", finalStartDate);
@@ -132,12 +135,32 @@ public class AddNewProject extends AppCompatActivity {
                 projectInfo.put("Description", description);
                 projectInfo.put("Cost", cost);
 
+
+
                 //Ajoute le document du projet ajouté dans la db
                 db.collection("PPE").document(ppeId).collection("Projet").add(projectInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         //Message de réussite pour l'utilisateur
                         Toast.makeText(AddNewProject.this, "Projet ajouté avec succès", Toast.LENGTH_SHORT).show();
+                        String newProjectID = documentReference.getId();//Id du document crée
+
+                        //HashMap pour l'initialisation de la collection "VotedBy" du projet ajouté
+                        Map<String, Object> votedByCollection = new HashMap<>();
+                        votedByCollection.put("Title", "Init");
+
+                        //Ajout de la collection votedBy
+                        db.collection("PPE").document(ppeId).collection("Projet").document(newProjectID).collection("VotedBy").document("Document_d'initialisation").set(votedByCollection).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(AddNewProject.this, "Collection votedBy initialisée", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(AddNewProject.this, "errerur : " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -146,6 +169,9 @@ public class AddNewProject extends AppCompatActivity {
                         Toast.makeText(AddNewProject.this, "Erreur " + e.getMessage().toString(), Toast.LENGTH_LONG).show();
                     }
                 });
+
+                //Ajout de la collection VotedBy au document du projet ajouté
+
             }
         });
     }

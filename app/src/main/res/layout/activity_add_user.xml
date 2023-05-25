@@ -13,14 +13,14 @@
 
     <EditText
         android:id="@+id/editTextLastName"
-        android:hint="Last Name"
+        android:hint="Nom de famille"
         android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/editTextFirstName"
-        android:hint="First Name"
+        android:hint="Prénom"
         android:inputType="textPersonName"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
 
     <EditText
         android:id="@+id/editTextEmail"
-        android:hint="Email"
+        android:hint="Courriel"
         android:inputType="textEmailAddress"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:hint="Password"
+        android:hint="Mot de passe"
         android:inputType="textPassword"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
@@ -44,14 +44,14 @@
 
     <EditText
         android:id="@+id/editTextAddress"
-        android:hint="PPE adresse"
+        android:hint="Adresse de la PPE"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/buttonSaveUser"
-        android:text="Save new user"
+        android:text="Ajouter"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

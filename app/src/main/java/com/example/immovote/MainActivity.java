@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    //Gestion du menu
+
 
     //Affichage du menu
     @Override
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //Gestion du menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             List<String> addresses = new ArrayList<>();
                             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                String addresse = documentSnapshot.getString("Address");
+                                String addresse = documentSnapshot.getString("address");
                                 if (addresse != null){
                                     addresses.add(addresse);
                                 }

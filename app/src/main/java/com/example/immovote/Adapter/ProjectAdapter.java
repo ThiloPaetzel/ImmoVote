@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.immovote.EditPPEActivity;
 import com.example.immovote.EditProjectActivity;
 import com.example.immovote.Model.ProjectModel;
+import com.example.immovote.ProjectDetailActivity;
 import com.example.immovote.R;
 import com.example.immovote.Utils.UserIsAdmin;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -122,6 +123,33 @@ public class ProjectAdapter extends FirestoreRecyclerAdapter<ProjectModel, Proje
                     itemView.getContext().startActivity(intent);//Lance 'activité en utilisant l'itemView pour récupérer le context
                 }
             });
+            //Si le boutton détail est cliqué
+            detailBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getBindingAdapterPosition();//Position dans le recyclerView
+                    ProjectModel projectModel = getItem(position);//Récupère toutes les informations de l'objet ou le boutton update à été cliqué
+
+                    //Bundle qui contiendra les informations du projet, passe toutes les infos du projet pour ne pas à avoir a faire de requête firestore pour chercher les informations dans la page de modification
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ppeId", getSnapshots().getSnapshot(position).getReference().getParent().getParent().getId());//Id du document de la PPE
+                    bundle.putString("projectId", getSnapshots().getSnapshot(position).getId());//Id du projet
+                    bundle.putString("projectName", projectModel.getTitle());//Nom du projet
+                    bundle.putString("projectCost", projectModel.getCost());//Cout du projet
+                    bundle.putString("projectStartDate", projectModel.getStartDate());//Date du début du projet
+                    bundle.putString("projectEndDate", projectModel.getEndDate());//Date de fin du projet
+                    bundle.putInt("projectStatus", projectModel.getStatus());//Status du projet
+                    bundle.putInt("projectVoteUp", projectModel.getVoteUp());//Votes pour le projet
+                    bundle.putInt("projectVoteDown", projectModel.getVoteDown());//Votes contre le projet
+                    bundle.putInt("projectVoteMiddle", projectModel.getVoteMiddle());//Votes abstention pour le projet
+                    bundle.putString("projectDescription", projectModel.getDescription());//Description du projet
+                    //Lancement de l'activité de modification
+                    Intent intent = new Intent(itemView.getContext(), ProjectDetailActivity.class);
+                    intent.putExtras(bundle);//Permet de passer le bundle à l'activité qui sera ouverte
+                    itemView.getContext().startActivity(intent);//Lance 'activité en utilisant l'itemView pour récupérer le context
+                }
+            });
+
         }
 
         //Affiche un dialogue de confirmation avant de supprimer l'élément
