@@ -109,6 +109,24 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Vous n'avez pas les permissions", Toast.LENGTH_SHORT).show();
                     return false;
                 }
+            case R.id.AddAdminMenu:
+                if (UserIsAdmin.userIsAdmin == true){
+                    Intent intent = new Intent(getApplicationContext(), AddAdministratorActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else {
+                    Toast.makeText(this, "Vous n'avez pas les permissions", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            case R.id.ListAdminMenu:
+                if (UserIsAdmin.userIsAdmin == true){
+                    Intent intent = new Intent(getApplicationContext(), ListAdminActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else {
+                    Toast.makeText(this, "Vous n'avez pas les permissions", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -130,57 +148,60 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //Check si l'utilisateur est admin va checker avec whereEqualTo si le champ isAdmin est juste si oui, utilise la query pour afficher toutes les PPE
-        db.collection("Users").document(currentUser.getEmail()).collection("Info").whereEqualTo("isAdmin", true).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Users").document(currentUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful() && !task.getResult().isEmpty()){
-                    // Est admin
-                    UserIsAdmin.userIsAdmin = true;
-                    Toast.makeText(MainActivity.this, "You are admin", Toast.LENGTH_SHORT).show();
-                    fab.setVisibility(View.VISIBLE);//Rends le boutton d'ajout visible
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful() && task.getResult() != null) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.getBoolean("isAdmin") != null && document.getBoolean("isAdmin")) {
+                        //L'utilisateur est admin
+                        UserIsAdmin.userIsAdmin = true;
+                        Toast.makeText(MainActivity.this, "You are admin", Toast.LENGTH_SHORT).show();
+                        fab.setVisibility(View.VISIBLE); //Rend le bouton d'ajout visible
 
-                    Query query = FirebaseFirestore.getInstance().collection("PPE");
-                    FirestoreRecyclerOptions<PPEModel> options = new FirestoreRecyclerOptions.Builder<PPEModel>().setQuery(query, PPEModel.class).build();
-                    adapter = new PPEAdapter(options);
+                        Query query = FirebaseFirestore.getInstance().collection("PPE");
+                        FirestoreRecyclerOptions<PPEModel> options = new FirestoreRecyclerOptions.Builder<PPEModel>().setQuery(query, PPEModel.class).build();
+                        adapter = new PPEAdapter(options);
 
-                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                        recyclerView.setAdapter(adapter);
 
-                    adapter.startListening();
-                } else {
-                    //Utilisateur non admin va chercher dans la collection "myPPE" et va ajouer toutes les adresses à la liste addresses
-                    UserIsAdmin.userIsAdmin = false;
-                    Toast.makeText(MainActivity.this, "you are not admin", Toast.LENGTH_SHORT).show();
-                    fab.setVisibility(View.GONE);//Rends le boutton d'ajout invisible
-                    FirebaseFirestore.getInstance().collection("Users").document(currentUser.getEmail()).collection("myPPE").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<String> addresses = new ArrayList<>();
-                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                                String addresse = documentSnapshot.getString("address");
-                                if (addresse != null){
-                                    addresses.add(addresse);
+                        adapter.startListening();
+                    } else {
+                        // Utilisateur non admin
+                        UserIsAdmin.userIsAdmin = false;
+                        Toast.makeText(MainActivity.this, "You are not admin", Toast.LENGTH_SHORT).show();
+                        fab.setVisibility(View.GONE); //Rend le bouton d'ajout invisible
+
+                        FirebaseFirestore.getInstance().collection("Users").document(currentUser.getEmail()).collection("myPPE").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                List<String> addresses = new ArrayList<>();
+                                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                    String address = documentSnapshot.getString("address");
+                                    if (address != null) {
+                                        addresses.add(address);
+                                    }
                                 }
+
+                                // Utilise la liste des adresses pour afficher uniquement les PPE auxquelles l'utilisateur appartient
+                                Query query = FirebaseFirestore.getInstance().collection("PPE").whereIn("Address", addresses);
+
+                                FirestoreRecyclerOptions<PPEModel> options = new FirestoreRecyclerOptions.Builder<PPEModel>().setQuery(query, PPEModel.class).build();
+                                adapter = new PPEAdapter(options);
+
+                                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                                recyclerView.setAdapter(adapter);
+
+                                adapter.startListening();
                             }
-
-                            //Utilise la list avec toutes les addresses pour afficher depuis la collection "PPE" uniquement les ppe d'ont l'utilisateur fais partis
-                            Query query = FirebaseFirestore.getInstance().collection("PPE").whereIn("Address", addresses);
-
-                            FirestoreRecyclerOptions<PPEModel> options = new FirestoreRecyclerOptions.Builder<PPEModel>().setQuery(query, PPEModel.class).build();
-                            adapter = new PPEAdapter(options);
-
-                            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                            recyclerView.setAdapter(adapter);
-
-                            adapter.startListening();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(MainActivity.this, "Erreur : " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
             }
         });

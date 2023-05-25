@@ -12,6 +12,15 @@
         android:theme="@style/Theme.ImmoVote"
         tools:targetApi="31">
         <activity
+            android:name=".EditAdminProfile"
+            android:exported="false" />
+        <activity
+            android:name=".ListAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddAdministratorActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProjectDetailActivity"
             android:exported="false" />
         <activity

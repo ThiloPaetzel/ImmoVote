@@ -11,14 +11,21 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firestore.v1.CreateDocumentRequest;
+import com.google.firestore.v1.CreateDocumentRequestOrBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,22 +105,48 @@ public class AddUserActivity extends AppCompatActivity {
                                                     if (task.isSuccessful()){
                                                         DocumentSnapshot document = task.getResult();
                                                         //Si le document n'existe pas ajoute toutes les données de l'utilisateurs dans les collections necessaire
-                                                        if (!document.exists()){
+                                                        if (!document.exists()) {
                                                             Map<String, Object> userInfo = new HashMap<>();
                                                             userInfo.put("firstName", firstName);
                                                             userInfo.put("lastName", lastName);
                                                             userInfo.put("isAdmin", false);
-                                                            Map<String, Object> ppeInfo = new HashMap<>();
-                                                            ppeInfo.put("address", address);
-                                                            //Premier enregistrement de l'utilisateur il faut créer les collections et les documents du nouvel utilisateur
-                                                            db.collection("Users").document(email).set(new HashMap<>());
-                                                            db.collection("Users").document(email).collection("Info").add(userInfo);
-                                                            db.collection("Users").document(email).collection("myPPE").add(ppeInfo);
+                                                            userInfo.put("email", email);
+
+                                                            //Enregistrement de l'utilisateur il faut créer le document du nouvel utilisateur
+                                                            db.collection("Users").document(email).set(userInfo)
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+                                                                            Map<String, Object> ppeInfo = new HashMap<>();
+                                                                            ppeInfo.put("address", address);
+
+                                                                            // Ajouter le document "myPPE" pour l'utilisateur
+                                                                            db.collection("Users").document(email).collection("myPPE").add(ppeInfo)
+                                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                                        @Override
+                                                                                        public void onSuccess(DocumentReference documentReference) {
+                                                                                            //Ajout de sa PPE réussi
+                                                                                        }
+                                                                                    })
+                                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                                        @Override
+                                                                                        public void onFailure(@NonNull Exception e) {
+                                                                                            Toast.makeText(AddUserActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                                        }
+                                                                                    });
+                                                                        }
+                                                                    })
+                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
+                                                                            Toast.makeText(AddUserActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    });
                                                         }
                                                     }
                                                 }
                                             });
-                                            Toast.makeText(AddUserActivity.this, "Copropriétaire" + lastName.toString() + " " + firstName.toString() + " crée", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AddUserActivity.this, "Copropriétaire " + lastName.toString() + " " + firstName.toString() + " crée", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(AddUserActivity.this, "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                         }
