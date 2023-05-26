@@ -21,7 +21,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 16.05.2023
+//Description : Class Activity. Représente une page de l'application. Permet d'ajouter une nouvelle PPE dans la base de données
 public class AddNewPPEActivity extends AppCompatActivity {
 
     private EditText editName, editAddress;

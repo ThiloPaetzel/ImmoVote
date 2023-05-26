@@ -23,7 +23,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-//Adapter qui permet d'afficher tous les projets des copropriétés
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 15.05.2023
+//Description : Class adapter. Permet de gérer tous les éléments présent dans le recyclerView qui affiche tous les Projets
 public class ProjectAdapter extends FirestoreRecyclerAdapter<ProjectModel, ProjectAdapter.ProjectViewHolder> {
 
     private FirebaseFirestore firestore;
@@ -62,6 +65,8 @@ public class ProjectAdapter extends FirestoreRecyclerAdapter<ProjectModel, Proje
         return new ProjectAdapter.ProjectViewHolder(view);
     }
 
+    //Permet de supprimer un élément du recyclerView
+    //Param : position. Position dans le recyclerView
     public void deleteItem(int position){
         if (UserIsAdmin.userIsAdmin == true){
             //Supprime l'élément à la position donnée dans la base de données Firestore
@@ -69,6 +74,7 @@ public class ProjectAdapter extends FirestoreRecyclerAdapter<ProjectModel, Proje
         }
     }
 
+    //Sous classe viewHolder représente les items de la vue dans le recyclerView
     public class ProjectViewHolder extends RecyclerView.ViewHolder{
 
         TextView cost, description, endDate, startDate, title, status;

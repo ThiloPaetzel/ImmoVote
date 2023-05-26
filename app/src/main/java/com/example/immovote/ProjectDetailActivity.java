@@ -2,35 +2,50 @@ package com.example.immovote;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.immovote.Adapter.AdminAdapter;
+import com.example.immovote.Adapter.CommentAdapter;
+import com.example.immovote.Model.AdminModel;
+import com.example.immovote.Model.CommentModel;
 import com.example.immovote.Utils.UserIsAdmin;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 25.05.2023
+//Description : Class Activity. Représente une page de l'application. Page de détail d'un projet
 public class ProjectDetailActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TextView projectName, projectCost, projectDates, projectDescription, projectVotes;
     private FirebaseFirestore db;
+    private CommentAdapter adapter;
+    private FloatingActionButton addCommentFab;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -49,6 +64,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
         projectDates = findViewById(R.id.projectDate);
         projectDescription = findViewById(R.id.projectDescription);
         projectVotes = findViewById(R.id.projectVotes);
+        addCommentFab = findViewById(R.id.addCommentFab);
         db = FirebaseFirestore.getInstance();
 
         //Récupère les éléments du bundle
@@ -70,9 +86,51 @@ public class ProjectDetailActivity extends AppCompatActivity {
         projectDates.setText("Début : " + projectStartDateData + " Fin : " + projectEndDateData);
         projectVotes.setText("Vote pour : " + projectVoteUpData + " Contres : " + projectVoteDownData + " Abstention : " + projectVoteMiddleData);
         projectDescription.setText(projectDescriptionData);
+        //Affiche le boutton d'ajout de commentaire uniquement si l'utilisateur n'est pas un administrateur
+        if (UserIsAdmin.userIsAdmin == false){
+            addCommentFab.setVisibility(View.VISIBLE);
+        } else {
+            addCommentFab.setVisibility(View.GONE);
+        }
+
+        //Si le boutton d'ajout de commentaire est cliqué
+        addCommentFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AddCommentActivity.class);
+                Bundle bundleAddComment = new Bundle();
+                bundleAddComment.putString("projectId", projectIdData);
+
+                intent.putExtras(bundleAddComment);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //Utilise la list avec toutes les addresses pour afficher depuis la collection "Comment" uniquement les commentaire qui possède le champs "Project" et qui ont comme valeur l'id du projet
+        Query query = FirebaseFirestore.getInstance().collection("Comments").whereEqualTo("Project", projectIdData);
+
+        FirestoreRecyclerOptions<CommentModel> options = new FirestoreRecyclerOptions.Builder<CommentModel>().setQuery(query, CommentModel.class).build();
+        adapter = new CommentAdapter(options);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(ProjectDetailActivity.this));
+        recyclerView.setAdapter(adapter);
+
+        adapter.startListening();
 
 
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //Arrête l'écoute
+        adapter.stopListening();
+    }
+
 
     //Affichage du menu de vote
 

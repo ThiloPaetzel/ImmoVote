@@ -23,7 +23,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 25.05.2023
+//Description : Class Activity. Représente une page de l'application. Permet d'ajouter un nouvel administrateur dans la base de données
 public class AddAdministratorActivity extends AppCompatActivity {
 
     private EditText editLastName, editFirstName, editEmail, editPassword;
@@ -31,13 +34,11 @@ public class AddAdministratorActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_administrator);
         mAuth = FirebaseAuth.getInstance();//Instance d'authentification
-        FirebaseFirestore db = FirebaseFirestore.getInstance();//Instance de la db
         editLastName = findViewById(R.id.editTextLastName);
         editFirstName = findViewById(R.id.editTextFirstName);
         editEmail = findViewById(R.id.editTextEmail);

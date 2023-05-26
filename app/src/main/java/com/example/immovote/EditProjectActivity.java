@@ -20,7 +20,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 23.05.2023
+//Description : Class Activity. Représente une page de l'application. Permet d'éditer un projet
 public class EditProjectActivity extends AppCompatActivity {
     private EditText editTitle, editDescription, editCost;
     private TextView editStartDate, editEndDate;

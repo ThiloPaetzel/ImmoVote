@@ -20,7 +20,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-//Class qui affiche le detail d'une PPE
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 22.05.2023
+//Description : Class Activity. Représente une page de l'application. Représente la page de détail d'une PPE
 public class PPEDetailActivity extends AppCompatActivity {
     private TextView name, address;
     private FirebaseFirestore db;

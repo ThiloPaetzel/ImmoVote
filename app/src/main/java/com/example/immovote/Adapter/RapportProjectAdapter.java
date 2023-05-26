@@ -14,7 +14,10 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-//Classe adapter pour l'affichage des projets dans la page de rapport
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 15.05.2023
+//Description : Class adapter. Permet de gérer tous les éléments présent dans le recyclerView qui affiche tous les Projets dans le rapport
 public class RapportProjectAdapter extends FirestoreRecyclerAdapter<ProjectModel, RapportProjectAdapter.RapportProjectViewHolder> {
 
     private FirebaseFirestore firestore;
@@ -52,6 +55,7 @@ public class RapportProjectAdapter extends FirestoreRecyclerAdapter<ProjectModel
         return new RapportProjectAdapter.RapportProjectViewHolder(view);
     }
 
+    //Sous classe viewHolder représente les items de la vue dans le recyclerView
     public class RapportProjectViewHolder extends RecyclerView.ViewHolder{
 
         TextView name, cost, startDate, endDate, status;

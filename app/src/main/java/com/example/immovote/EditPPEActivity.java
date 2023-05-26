@@ -14,7 +14,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 17.05.2023
+//Description : Class Activity. Représente une page de l'application. Permet d'éditer les informations d'une PPE
 public class EditPPEActivity extends AppCompatActivity {
     private EditText editName, editAddress;
     private Button modifyBtn;

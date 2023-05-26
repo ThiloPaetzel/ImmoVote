@@ -13,7 +13,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 25.05.2023
+//Description : Class Activity. Représente une page de l'application. Permet d'éditer le profile d'un administrateur
 public class EditAdminProfile extends AppCompatActivity {
 
     private EditText newLastName, newFirstName;
@@ -29,6 +32,7 @@ public class EditAdminProfile extends AppCompatActivity {
         newFirstName = findViewById(R.id.editAdminFirstName);
         db = FirebaseFirestore.getInstance();
 
+        //Récupère les informations du bundle
         Bundle bundle = getIntent().getExtras();
         String lastNameData = bundle.getString("adminLastName");
         String firstNameData = bundle.getString("adminFirstName");

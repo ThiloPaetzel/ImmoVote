@@ -40,11 +40,14 @@ import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 15.05.2023
+//Description : Class Activity. Représente une page de l'application. Page d'accueil de l'application. Permet de voir les copropriété en fonction de ses droits
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PPEAdapter adapter;
-    private FloatingActionButton fab, updateBtn;
+    private FloatingActionButton fab;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 

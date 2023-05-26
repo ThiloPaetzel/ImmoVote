@@ -15,16 +15,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 25.05.2023
+//Description : Class Activity. Représente une page de l'application. Permet de voir la liste des administrateurs
 public class ListAdminActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private AdminAdapter adapter;
-
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseUser currentUser = mAuth.getCurrentUser();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

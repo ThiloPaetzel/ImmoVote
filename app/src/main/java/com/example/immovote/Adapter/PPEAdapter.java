@@ -26,10 +26,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 15.05.2023
+//Description : Class adapter. Permet de gérer tous les éléments présent dans le recyclerView qui affiche tous les PPE
 public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PPEViewHolder> {
     private FirebaseFirestore firestore;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();//Instance d'authentification
-    FirebaseUser currentUser = mAuth.getCurrentUser();//Utilisateur actuel
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -57,6 +59,8 @@ public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PP
         return new PPEViewHolder(view);
     }
 
+    //Permet de supprimer un élément du recyclerView
+    //Param : position. Position dans le recyclerView
     public void deleteItem(int position){
         if (UserIsAdmin.userIsAdmin == true){
             //Supprime l'élément à la position donnée dans la base de données Firestore
@@ -64,6 +68,7 @@ public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PP
         }
     }
 
+    //Sous classe viewHolder représente les items de la vue dans le recyclerView
     public class PPEViewHolder extends RecyclerView.ViewHolder{
 
         TextView name, address;

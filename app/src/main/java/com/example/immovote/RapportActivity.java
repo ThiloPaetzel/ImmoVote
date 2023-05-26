@@ -22,7 +22,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 23.05.2023
+//Description : Class Activity. Représente une page de l'application. Correspond à la page de rapport de la PPE
 public class RapportActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;

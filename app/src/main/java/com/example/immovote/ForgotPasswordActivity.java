@@ -16,7 +16,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
 import java.util.List;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 25.05.2023
+//Description : Class Activity. Représente une page de l'application. Permet de reset son mot de passe
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText userEmail;
     private Button resetButton;
@@ -36,6 +39,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     userEmail.setError("Vide impossible");
                 } else {
                     FirebaseAuth auth = FirebaseAuth.getInstance();
+                    //Vérification si l'email est bien associer à un compte
                     auth.fetchSignInMethodsForEmail(enteredEmail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                         @Override
                         public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {

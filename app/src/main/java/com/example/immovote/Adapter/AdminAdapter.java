@@ -26,6 +26,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 25.05.2023
+//Description : Class adapter. Permet de gérer tous les éléments présent dans le recyclerView qui affiche tous les administrateurs
 public class AdminAdapter extends FirestoreRecyclerAdapter<AdminModel, AdminAdapter.AdminViewHolder> {
 
     private FirebaseFirestore firestore;
@@ -41,11 +45,9 @@ public class AdminAdapter extends FirestoreRecyclerAdapter<AdminModel, AdminAdap
         firestore = FirebaseFirestore.getInstance();
     }
 
+    //Permet de set les textes présent dans le layout inflanté dans le recyclerView
     @Override
     protected void onBindViewHolder(@NonNull AdminViewHolder holder, int position, @NonNull AdminModel model) {
-
-        String userId = model.getEmail();
-
         //Permet de set comme text les valeurs présentent dans la db grâce à la class "AdminModel"
         holder.email.setText(model.getEmail());
         holder.firstName.setText(model.getFirstName());
@@ -53,6 +55,7 @@ public class AdminAdapter extends FirestoreRecyclerAdapter<AdminModel, AdminAdap
 
     }
 
+    //Lors de la création du ViewHolder ajoute la layout each_admin au recyclerView
     @NonNull
     @Override
     public AdminViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,6 +64,8 @@ public class AdminAdapter extends FirestoreRecyclerAdapter<AdminModel, AdminAdap
         return new AdminAdapter.AdminViewHolder(view);
     }
 
+    //Permet de supprimer un élément du recyclerView
+    //Param : position. Position dans le recyclerView
     public void deleteItem(int position){
         if (UserIsAdmin.userIsAdmin == true){
             //Supprime l'élément à la position donnée dans la base de données Firestore
@@ -68,6 +73,7 @@ public class AdminAdapter extends FirestoreRecyclerAdapter<AdminModel, AdminAdap
         }
     }
 
+    //Sous classe viewHolder représente les items de la vue dans le recyclerView
     public class AdminViewHolder extends RecyclerView.ViewHolder{
         TextView firstName, lastName, email;
         FloatingActionButton updateBtn, deleteBtn;
@@ -81,6 +87,7 @@ public class AdminAdapter extends FirestoreRecyclerAdapter<AdminModel, AdminAdap
             updateBtn = itemView.findViewById(R.id.adminUpdateBtn);
             deleteBtn = itemView.findViewById(R.id.adminDeleteBtn);
 
+            //Boutton supprimé cliqué
             deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,6 +95,7 @@ public class AdminAdapter extends FirestoreRecyclerAdapter<AdminModel, AdminAdap
                     showConfirmationDialog(position);//Méthode pour afficher un dialogue de confirmation
                 }
             });
+            //Boutton update cliqué
             updateBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

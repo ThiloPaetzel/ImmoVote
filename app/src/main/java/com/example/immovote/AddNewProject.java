@@ -23,7 +23,10 @@ import com.google.firebase.firestore.Query;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 22.05.2023
+//Description : Class Activity. Représente une page de l'application. Permet d'ajouter un nouveau projet dans la base de données
 public class AddNewProject extends AppCompatActivity {
 
     private EditText editName, editDescription, editCost;
@@ -134,7 +137,6 @@ public class AddNewProject extends AppCompatActivity {
                 projectInfo.put("EndDate", finaleEndDate);
                 projectInfo.put("Description", description);
                 projectInfo.put("Cost", cost);
-
 
 
                 //Ajoute le document du projet ajouté dans la db

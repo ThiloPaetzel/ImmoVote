@@ -30,7 +30,10 @@ import com.google.firestore.v1.CreateDocumentRequestOrBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
-//Class accessible uniquement en admin permettant d'ajouter un copropriétaire, un copropriétaire ne peut être ajouter uniquement dans une PPE existante dans la db
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 15.05.2023
+//Description : Class Activity. Représente une page de l'application. Permet d'ajouter un nouveau copropriétaire dans la base de données
 public class AddUserActivity extends AppCompatActivity {
 
     private EditText editLastName, editFirstName, editEmail, editPassword, editAddress;

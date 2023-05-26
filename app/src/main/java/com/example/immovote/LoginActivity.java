@@ -23,7 +23,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+//ETML
+//Auteur : Thilo Paetzel
+//Date : 15.05.2023
+//Description : Class Activity. Représente une page de l'application. Permet de se connecter si l'on possède un compte
 public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText editTextEmail, editTextPassword;
