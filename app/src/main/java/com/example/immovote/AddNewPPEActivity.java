@@ -84,7 +84,9 @@ public class AddNewPPEActivity extends AppCompatActivity {
                                         projCollection.put("Title", "init");
 
                                         //Ajout de la collection Projet à la PPE qui contient un document d'initialisation de la collection
-                                        db.collection("PPE").document(newPpeId).collection("Projet").document("Document_d'initialisation").set(projCollection).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        db.collection("PPE").document(newPpeId).collection("Projet")
+                                                .document("Document_d'initialisation").set(projCollection)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
                                                 Toast.makeText(AddNewPPEActivity.this, "Collection projet ajoutée", Toast.LENGTH_SHORT).show();

@@ -62,7 +62,9 @@ public class EditPPEActivity extends AppCompatActivity {
             editAddress.setError("Vide impossible");
         } else {
             //Si les champs ne sont pas vide, le document est mis à jour
-            db.collection("PPE").document(ppeId).update("Address", newAdress, "Name", newName).addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection("PPE").document(ppeId)
+                    .update("Address", newAdress, "Name", newName)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
                     Toast.makeText(EditPPEActivity.this, "PPE : modifiée", Toast.LENGTH_SHORT).show();//Message en cas de succès

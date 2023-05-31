@@ -68,11 +68,13 @@ public class AddCommentActivity extends AppCompatActivity {
                 commentInfo.put("Project", projectId);
                 commentInfo.put("Title", commentTitle);
                 commentInfo.put("Creator", user.getEmail());
-                
-                db.collection("Comments").add(commentInfo).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                db.collection("Comments").add(commentInfo)
+                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         Toast.makeText(AddCommentActivity.this, "Votre commentaire à bien été ajouté", Toast.LENGTH_SHORT).show();
+                        addTitle.setText("");
+                        addContent.setText("");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

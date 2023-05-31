@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
         fab = findViewById(R.id.fab);
-
         //Ouvre la page d'ajout
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,14 +187,14 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                                 // Utilise la liste des adresses pour afficher uniquement les PPE auxquelles l'utilisateur appartient
-                                Query query = FirebaseFirestore.getInstance().collection("PPE").whereIn("Address", addresses);
+                                Query query = FirebaseFirestore.getInstance().collection("PPE")
+                                        .whereIn("Address", addresses);
 
-                                FirestoreRecyclerOptions<PPEModel> options = new FirestoreRecyclerOptions.Builder<PPEModel>().setQuery(query, PPEModel.class).build();
+                                FirestoreRecyclerOptions<PPEModel> options = new FirestoreRecyclerOptions.Builder<PPEModel>()
+                                        .setQuery(query, PPEModel.class).build();
                                 adapter = new PPEAdapter(options);
-
                                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                                 recyclerView.setAdapter(adapter);
-
                                 adapter.startListening();
                             }
                         }).addOnFailureListener(new OnFailureListener() {

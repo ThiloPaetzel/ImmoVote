@@ -134,7 +134,8 @@ public class EditProjectActivity extends AppCompatActivity {
                 int newProjectStatus = finalStatus;
                 String newProjectDescription = editDescription.getText().toString().trim();
 
-                updateProject(newProjectTitle, newProjectCost, newProjectStartDate, newProjectEndDate, newProjectStatus, newProjectDescription, projectId, ppeId);
+                updateProject(newProjectTitle, newProjectCost, newProjectStartDate, newProjectEndDate,
+                        newProjectStatus, newProjectDescription, projectId, ppeId);
             }
         });
     }
@@ -155,7 +156,10 @@ public class EditProjectActivity extends AppCompatActivity {
             editDescription.setError("Vide Impossible");
         } else {
             //Si les champs ne sont pas vide le projet est mis à jour
-            db.collection("PPE").document(ppeId).collection("Projet").document(projectId).update("Cost", newCost, "Description", newDescription, "EndDate", newEndDate, "StartDate", newStartDate, "Status", newStatus, "Title", newTitle).addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection("PPE").document(ppeId).collection("Projet")
+                    .document(projectId).update("Cost", newCost, "Description", newDescription, "EndDate",
+                            newEndDate, "StartDate", newStartDate, "Status",
+                            newStatus, "Title", newTitle).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
                     Toast.makeText(EditProjectActivity.this, "Projet modifié", Toast.LENGTH_SHORT).show();
@@ -177,8 +181,10 @@ public class EditProjectActivity extends AppCompatActivity {
         editDescription.setText(description);
         if (status == 1){
             editEnded.setChecked(true);
+            finalStatus = 1;
         } else {
             editInProgress.setChecked(true);
+            finalStatus = 0;
         }
     }
 }

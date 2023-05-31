@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
-        android:text="Save"
+        android:text="Enregistrer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editAddName" />
 

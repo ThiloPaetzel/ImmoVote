@@ -70,7 +70,6 @@ public class PPEAdapter extends FirestoreRecyclerAdapter<PPEModel, PPEAdapter.PP
 
     //Sous classe viewHolder représente les items de la vue dans le recyclerView
     public class PPEViewHolder extends RecyclerView.ViewHolder{
-
         TextView name, address;
         FloatingActionButton deleteBtn, modifyBtn, detailBtn;
 

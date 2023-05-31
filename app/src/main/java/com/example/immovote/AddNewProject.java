@@ -137,8 +137,6 @@ public class AddNewProject extends AppCompatActivity {
                 projectInfo.put("EndDate", finaleEndDate);
                 projectInfo.put("Description", description);
                 projectInfo.put("Cost", cost);
-
-
                 //Ajoute le document du projet ajouté dans la db
                 db.collection("PPE").document(ppeId).collection("Projet").add(projectInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

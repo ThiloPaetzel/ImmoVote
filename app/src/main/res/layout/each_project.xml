@@ -129,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="16dp"
+                android:maxLines="@integer/material_motion_duration_short_1"
                 android:text="Description"
                 android:textColor="@color/black"
                 android:textSize="14sp"

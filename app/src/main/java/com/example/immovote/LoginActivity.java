@@ -66,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -101,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             //Login echec
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Login echec", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Email ou mot de passe incorect", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

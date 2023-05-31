@@ -58,7 +58,7 @@ public class PPEDetailActivity extends AppCompatActivity {
         String ppeName = bundle.getString("ppeName");
         String ppeAddress = bundle.getString("ppeAddress");
 
-        //Mets l'ancienne addresse et l'ancien nom
+        //Set les texts avec les informations de la PPE
         name.setText(ppeName);
         address.setText(ppeAddress);
         Query query = FirebaseFirestore.getInstance().collection("PPE").document(ppeId).collection("Projet").whereNotEqualTo("Title", "init");
@@ -77,7 +77,6 @@ public class PPEDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Bundle addProjectBundle = new Bundle();
                 addProjectBundle.putString("ppeId", bundle.getString("ppeId"));//Id de la PPE
-
 
                 Intent intent = new Intent(getApplicationContext(), AddNewProject.class);
                 intent.putExtras(addProjectBundle);

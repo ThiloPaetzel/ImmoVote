@@ -79,10 +79,17 @@ public class ProjectDetailActivity extends AppCompatActivity {
         projectVoteUpData = bundle.getInt("projectVoteUp");
         projectVoteDownData = bundle.getInt("projectVoteDown");
         projectVoteMiddleData = bundle.getInt("projectVoteMiddle");
-        //int projectStatusData = bundle.getInt("projectStatus");
+        int projectStatusData = bundle.getInt("projectStatus");
         //Set les textes
         projectName.setText(projectNameData);
         projectCost.setText(projectCostData);
+        /*
+        if (projectStatusData == 1){
+            projectDates.setText("Projet terminé");
+        }else {
+            projectDates.setText("Début : " + projectStartDateData + " Fin : " + projectEndDateData);
+        }
+         */
         projectDates.setText("Début : " + projectStartDateData + " Fin : " + projectEndDateData);
         projectVotes.setText("Vote pour : " + projectVoteUpData + " Contres : " + projectVoteDownData + " Abstention : " + projectVoteMiddleData);
         projectDescription.setText(projectDescriptionData);
