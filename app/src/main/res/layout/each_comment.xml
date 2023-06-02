@@ -61,12 +61,11 @@
                 android:id="@+id/infoText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="44dp"
                 android:text="Commentaire de "
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.739"
-                app:layout_constraintStart_toEndOf="@+id/commentTitle"
                 app:layout_constraintTop_toTopOf="parent" />
 
 

@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                     if (document.getBoolean("isAdmin") != null && document.getBoolean("isAdmin")) {
                         //L'utilisateur est admin
                         UserIsAdmin.userIsAdmin = true;
-                        Toast.makeText(MainActivity.this, "You are admin", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "You are admin", Toast.LENGTH_SHORT).show();
                         fab.setVisibility(View.VISIBLE); //Rend le bouton d'ajout visible
 
                         Query query = FirebaseFirestore.getInstance().collection("PPE");
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         // Utilisateur non admin
                         UserIsAdmin.userIsAdmin = false;
-                        Toast.makeText(MainActivity.this, "You are not admin", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "You are not admin", Toast.LENGTH_SHORT).show();
                         fab.setVisibility(View.GONE); //Rend le bouton d'ajout invisible
 
                         FirebaseFirestore.getInstance().collection("Users").document(currentUser.getEmail()).collection("myPPE").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {

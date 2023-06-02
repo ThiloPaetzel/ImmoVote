@@ -96,16 +96,16 @@ public class RapportActivity extends AppCompatActivity {
                 switch (checkedId){
                     //Si le boutton Terminés est cliqué affiche uniquement les projets finis
                     case R.id.radioButtonEndedSelect:
-                        Query queryEnded = FirebaseFirestore.getInstance().collection("PPE").document(ppeId).collection("Projet").whereNotEqualTo("Title", "init").whereEqualTo("Status", 1);
-
-                        FirestoreRecyclerOptions<ProjectModel> optionsEnded = new FirestoreRecyclerOptions.Builder<ProjectModel>().setQuery(queryEnded, ProjectModel.class).build();
+                        Query queryEnded = FirebaseFirestore.getInstance().collection("PPE")
+                                .document(ppeId)
+                                .collection("Projet")
+                                .whereEqualTo("Status", 1);
+                        FirestoreRecyclerOptions<ProjectModel> optionsEnded = new FirestoreRecyclerOptions.Builder<ProjectModel>()
+                                .setQuery(queryEnded, ProjectModel.class).build();
                         adapter = new RapportProjectAdapter(optionsEnded);
-
                         recyclerView.setLayoutManager(new LinearLayoutManager(RapportActivity.this));
                         recyclerView.setAdapter(adapter);
-
                         adapter.startListening();
-
                         //Va additionner grâce à la query tous les nombre présents dans les champs "Cost" des documents
                         queryEnded.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -128,7 +128,7 @@ public class RapportActivity extends AppCompatActivity {
                         break;
                     case R.id.radioButtonInProgressSelect:
                         //Si le boutton En cours est cliqué affiche uniquement les projets en cours s'affiche
-                        Query queryInProgress = FirebaseFirestore.getInstance().collection("PPE").document(ppeId).collection("Projet").whereNotEqualTo("Title", "init").whereEqualTo("Status", 0);
+                        Query queryInProgress = FirebaseFirestore.getInstance().collection("PPE").document(ppeId).collection("Projet").whereEqualTo("Status", 0);
 
                         FirestoreRecyclerOptions<ProjectModel> optionsInProgress = new FirestoreRecyclerOptions.Builder<ProjectModel>().setQuery(queryInProgress, ProjectModel.class).build();
                         adapter = new RapportProjectAdapter(optionsInProgress);

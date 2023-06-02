@@ -39,6 +39,7 @@ public class RapportProjectAdapter extends FirestoreRecyclerAdapter<ProjectModel
         holder.cost.setText(model.getCost());
         holder.startDate.setText(model.getStartDate());
         holder.endDate.setText(model.getEndDate());
+        holder.vote.setText("Vote Pour : " + model.getVoteUp() + "  Vote Contre : " + model.getVoteDown() + "  Vote Abstention : " + model.getVoteMiddle());
         //Set le texte en fonction du champs dans la db
         if (model.getStatus() == 0){
             holder.status.setText("En cours");
@@ -58,7 +59,7 @@ public class RapportProjectAdapter extends FirestoreRecyclerAdapter<ProjectModel
     //Sous classe viewHolder représente les items de la vue dans le recyclerView
     public class RapportProjectViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name, cost, startDate, endDate, status;
+        TextView name, cost, startDate, endDate, status, vote;
         public RapportProjectViewHolder(@NonNull View itemView) {
             super(itemView);
             //Va chercher les éléments dans la vue
@@ -67,6 +68,7 @@ public class RapportProjectAdapter extends FirestoreRecyclerAdapter<ProjectModel
             startDate = itemView.findViewById(R.id.textStart);
             endDate = itemView.findViewById(R.id.textEnd);
             status = itemView.findViewById(R.id.textStatus);
+            vote = itemView.findViewById(R.id.textVote);
         }
     }
 }
