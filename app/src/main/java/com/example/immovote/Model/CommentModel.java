@@ -11,31 +11,19 @@ public class CommentModel {
         return Creator;
     }
 
-    public void setCreator(String creator) {
-        Creator = creator;
-    }
 
     public String getMessage() {
         return Message;
     }
 
-    public void setMessage(String message) {
-        Message = message;
-    }
 
     public String getProject() {
         return Project;
     }
 
-    public void setProject(String project) {
-        Project = project;
-    }
 
     public String getTitle() {
         return Title;
     }
 
-    public void setTitle(String title) {
-        Title = title;
-    }
 }

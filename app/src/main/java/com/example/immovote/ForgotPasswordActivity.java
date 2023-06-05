@@ -70,6 +70,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     });
                 }
             }
-        });
+        });//Fin de l'écouteur du bouton de reset
     }
 }

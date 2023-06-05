@@ -171,7 +171,7 @@ public class EditProjectActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+    }//Fin updateProject
 
     private void initText(String title, String cost, String startDate,String endDate, int status, String description) {
         editTitle.setText(title);
@@ -186,5 +186,5 @@ public class EditProjectActivity extends AppCompatActivity {
             editInProgress.setChecked(true);
             finalStatus = 0;
         }
-    }
+    }//Fin initText
 }

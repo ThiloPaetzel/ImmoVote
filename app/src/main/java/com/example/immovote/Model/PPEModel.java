@@ -12,15 +12,9 @@ public class PPEModel {
         return Name;
     }
 
-    public void setName(String name) {
-        this.Name = name;
-    }
 
     public String getAddress() {
         return Address;
     }
 
-    public void setAddress(String address) {
-        this.Address = address;
-    }
 }

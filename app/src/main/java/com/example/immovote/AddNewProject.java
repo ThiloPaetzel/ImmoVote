@@ -173,6 +173,6 @@ public class AddNewProject extends AppCompatActivity {
                 //Ajout de la collection VotedBy au document du projet ajouté
 
             }
-        });
+        });//Fin de l'écouteur de clique
     }
 }

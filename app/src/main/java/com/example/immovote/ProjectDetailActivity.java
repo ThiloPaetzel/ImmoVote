@@ -409,7 +409,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
         projectRef.collection("VotedBy").add(votedByData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(ProjectDetailActivity.this, "Document ajouté dans VotedBy", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ProjectDetailActivity.this, "Document ajouté dans VotedBy", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -417,5 +417,5 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 Toast.makeText(ProjectDetailActivity.this, "Erreur : " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }//Fin addNewVote
 }

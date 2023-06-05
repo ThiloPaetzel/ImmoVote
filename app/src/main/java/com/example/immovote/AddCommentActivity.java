@@ -83,6 +83,6 @@ public class AddCommentActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });//Fin de l'écouteur de clique
     }
 }

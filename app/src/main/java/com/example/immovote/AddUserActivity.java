@@ -162,7 +162,7 @@ public class AddUserActivity extends AppCompatActivity {
                             Toast.makeText(AddUserActivity.this, "Erreur " +task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
+                });//Fin de l'ajout d'un utilisateur
             }
         });
     }

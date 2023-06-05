@@ -89,7 +89,7 @@ public class AddNewPPEActivity extends AppCompatActivity {
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-                                                Toast.makeText(AddNewPPEActivity.this, "Collection projet ajoutée", Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(AddNewPPEActivity.this, "Collection projet ajoutée", Toast.LENGTH_SHORT).show();
                                                 //Reset les champs de texte
                                                 editAddress.setText("");
                                                 editName.setText("");

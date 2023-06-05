@@ -105,6 +105,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });//Fin de l'écouteur de clique sur le bouton login
     }
 }

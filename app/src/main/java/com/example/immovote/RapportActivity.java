@@ -160,7 +160,7 @@ public class RapportActivity extends AppCompatActivity {
                         break;
                 }
             }
-        });
+        });//Fin de la gestion du radioGroup
     }
 
     @Override

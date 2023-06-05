@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
-    }
+    }//Fin de la méthode de gestion du menu
 
     //Permet de se déconnecter de son compte
     public void logout(){

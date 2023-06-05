@@ -129,7 +129,7 @@ public class AddAdministratorActivity extends AppCompatActivity {
                             Toast.makeText(AddAdministratorActivity.this, "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
+                });//Fin de la méthode d'ajout d'un administrateur
             }
         });
     }
